@@ -1,1 +1,1 @@
-As Duolingo's number 1 fan: これは私の夢のプロジェクト :)
+As Duolingo's number 1 fan: これは私の夢のプロジェクトです :)
