@@ -73,6 +73,13 @@ struct SpeechBubble : Shape {
         // top left corner
         path.addArc(center: CGPoint(x: rect.minX + cornerRadius, y: rect.minY + cornerRadius), radius: cornerRadius, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: -180), clockwise: true)
         
+        // little triangle at left
+        if (!isBottom){
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY-10))
+            path.addLine(to: CGPoint(x: rect.minX-10, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY+10))
+        }
+        
         // left side
         path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY-cornerRadius))
         
