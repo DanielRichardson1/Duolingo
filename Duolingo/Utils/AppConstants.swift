@@ -6,9 +6,14 @@
 //
 
 struct Texts {
-    static let onBoardingText1 = "Hi there! I'm Duo!"
-    static let onBoardingText2 = "Just 7 quick questions before we start your first lesson!"
-
+    static let onboardingText : [String] = [
+        "Hi there! I'm Duo!",
+        "Just 7 quick questions before we start your first lesson!",
+        "DuoLingoLessons are backed by extensive research ...",
+        "... and they are also designed to be fun",
+        "Congrats on Completing your first lesson!",
+        "Now let's build you a habit of practicing every day."
+    ]
 }
 
 struct Images {

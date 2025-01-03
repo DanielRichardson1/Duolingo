@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State var isFirstViewPresented = true
+    @State var index = 0
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     var body: some View {
         NavigationView{
@@ -29,27 +29,44 @@ struct OnboardingView: View {
                 ZStack{
                     SpeechBubble(cornerRadius: 20, isBottom: true, pointLocation: 50)
                         .fill(Color.green)
-                    Text(isFirstViewPresented ? Texts.onBoardingText1 : Texts.onBoardingText2)
+                    Text(Texts.onboardingText[index])
                         .font(.system(size: 20))
                         .bold()
                         .foregroundStyle(.white)
                         .padding()
-                }.frame(width: isFirstViewPresented ? 200 : 350, height: 100)
-                Image(isFirstViewPresented ?
-                    Images.onBoardingImage1 :
-                    Images.onBoardingImage2)
-                    .scaledToFit()
-                Button(action: {
-                    isFirstViewPresented = false
-                } ) {
-                    Text("Continue")
-                        .font(.system(size:20))
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding(EdgeInsets(top: 16, leading: 100, bottom: 16, trailing: 100))
-                        .background(Color.green)
-                        .cornerRadius(10)
-                        .padding(.top, 150)
+                }.frame(width: index==0 ? 200 : 350, height: 100)
+                Image(index%2 != 0 ?
+                      Images.onBoardingImage1 :
+                        Images.onBoardingImage2)
+                .scaledToFit()
+                if (index==1){
+                    NavigationLink(destination: OnboardingQuestionareView(onboardingIndex: .constant(1))){
+                        Text("Continue")
+                            .font(.system(size:20))
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 16, leading: 100, bottom: 16, trailing: 100))
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.top, 150)
+                    }
+                }
+                else if (index == 3) {
+                    // Move to lessons view
+                }
+                else {
+                    Button(action: {
+                        index += 1
+                    } ) {
+                        Text("Continue")
+                            .font(.system(size:20))
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 16, leading: 100, bottom: 16, trailing: 100))
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.top, 150)
+                    }
                 }
             }
         }.navigationBarBackButtonHidden(true)

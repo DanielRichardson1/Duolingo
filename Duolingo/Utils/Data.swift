@@ -32,7 +32,31 @@ struct Data {
         query: "What's your daily learning goal?",
         answerImage: [],
         answerText: ["5 min/day", "10 min/day", "15 min/day", "20 min/day"],
-        answerSubText: ["Casual", "Regular", "Serious", "Intenes"]
+        answerSubText: ["Casual", "Regular", "Serious", "Intense"]
+    ),
+    Question(
+        query: "That's 25 words in your first week",
+        answerImage: [],
+        answerText: [],
+        answerSubText: []
+    ),
+    Question(
+        query: "I'll remind you to practice so that it become a habit!",
+        answerImage: [],
+        answerText: [],
+        answerSubText: []
+    ),
+    Question(
+        query: "Here is what you can achieve in 3 months",
+        answerImage: ["chat","flashCards","watch"],
+        answerText: ["Converse with confidence","Build up your vocabulary","Develop a learning habit"],
+        answerSubText: ["Stress-free speaking and listening exercise","Common words and practical phrases","Smart reminders, fun challenges and more"]
+    ),
+    Question(
+        query: "Where would you like to start?",
+        answerImage: ["notebook","compass"],
+        answerText: ["Start from scratch","Find my level"],
+        answerSubText: ["Take the easiest lesson of selected Language","Let Duo Recommend where you should start learning"]
     )
     ]
 }
