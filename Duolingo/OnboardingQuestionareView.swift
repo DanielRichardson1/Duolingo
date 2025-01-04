@@ -111,7 +111,7 @@ struct OnboardingQuestionareView: View {
     }
     
     func isEnableContinueButton() -> Bool{
-        if selectedEntry.count == 0 {
+        if selectedEntry.count == 0 || index == 6 {
             return true
         }
         for i in 0..<selectedEntry.count {

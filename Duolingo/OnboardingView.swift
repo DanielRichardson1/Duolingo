@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State var index = 0
+    @State private var index = 0
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     var body: some View {
         NavigationView{
@@ -36,11 +36,10 @@ struct OnboardingView: View {
                         .padding()
                 }.frame(width: index==0 ? 200 : 350, height: 100)
                 Image(index%2 != 0 ?
-                      Images.onBoardingImage1 :
-                        Images.onBoardingImage2)
-                .scaledToFit()
+                        Images.onBoardingImage1 :
+                        Images.onBoardingImage2).scaledToFit()
                 if (index==1){
-                    NavigationLink(destination: OnboardingQuestionareView(onboardingIndex: .constant(1))){
+                    NavigationLink(destination: OnboardingQuestionareView(onboardingIndex: $index)){
                         Text("Continue")
                             .font(.system(size:20))
                             .bold()
@@ -52,7 +51,16 @@ struct OnboardingView: View {
                     }
                 }
                 else if (index == 3) {
-                    // Move to lessons view
+                    NavigationLink(destination: LessonView()){
+                        Text("Continue")
+                            .font(.system(size:20))
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 16, leading: 100, bottom: 16, trailing: 100))
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.top, 150)
+                    }
                 }
                 else {
                     Button(action: {
