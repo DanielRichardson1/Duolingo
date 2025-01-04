@@ -60,3 +60,37 @@ struct Data {
     )
     ]
 }
+
+struct LessonsData {
+    static let lessons = [
+        Lessons(type: .wordWithSound,
+                question: "は",
+                questionInJapanse: "は",
+                japaneseOptions: [],
+                options: ["ha", "shi", "i"],
+                correctOptionIndex: 0,
+                correctMatchIndices: []),
+        Lessons(type: .onlyText,
+                question: "bi",
+                questionInJapanse: "び",
+                japaneseOptions: ["び", "じ", "ぽ"],
+                options: [],
+                correctOptionIndex: 0,
+                correctMatchIndices: []),
+        Lessons(type: .onlySound,
+                question: "あ",
+                questionInJapanse: "あ",
+                japaneseOptions: [],
+                options: ["お", "あ", "い"],
+                correctOptionIndex: 1,
+                correctMatchIndices: []),
+        Lessons(type: .matchingPairs,
+                question: "",
+                questionInJapanse: "",
+                japaneseOptions: ["あ", "い", "え", "お", "う"],
+                options: ["i", "e", "u", "a", "o"],
+                correctOptionIndex: 1,
+                correctMatchIndices: [[0, 3], [1, 0], [2, 1], [3, 4], [4, 2]])
+        
+    ]
+}
