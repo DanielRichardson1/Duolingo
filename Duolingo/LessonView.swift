@@ -13,7 +13,7 @@ struct LessonView: View {
     @State private var progress = 0.1
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     let lessonsData = LessonsData.lessons
-    @State var indexLesson : Int = 2
+    @State var indexLesson : Int = 0
     @ObservedObject var selectionHandler = OptionSelectionHandler()
     @State var gridItems = [GridItem(.flexible(), alignment:.center)]
     @State private var speechSynthesizer : AVSpeechSynthesizer?
@@ -78,15 +78,66 @@ struct LessonView: View {
                 
                 ScrollView {
                     LazyVGrid(columns: gridItems){
-                        Text("options")
+                        ForEach(0..<options.count,id : \.self){ i in
+                            OptionsCardView(index: i, selectionObject: selectionHandler, word: options[i], type: lessonsData[indexLesson].type)
+                        }
                     }
                     
                 }
+                
+                if displayResultView{
+                    OptionsResultView(result: result)
+                }
+                
+                Button(action: {
+                    if(!displayResultView) {
+                        if(selectionHandler.isSomeSelectedEntry){
+                            displayResultView = true
+                            let index = selectionHandler.indexOfEntrySelected
+                            if(index == lessonsData[indexLesson].correctOptionIndex){
+                                result.answer = ""
+                                result.isCorrect = true
+                            }
+                            else {
+                                result.answer = options[lessonsData[indexLesson].correctOptionIndex]
+                                result.isCorrect = false
+                            }
+                        }
+                        else {
+                            displayResultView = false
+                            result.isCorrect = true
+                            indexLesson += 1
+                            let options = lessonsData[indexLesson].options.count > 0 ? lessonsData[indexLesson].options : lessonsData[indexLesson].japaneseOptions
+                        }
+                    }
+                }){
+                    Text(displayResultView ? "Continue" : "Check")
+                        .font(.system(size:30))
+                        .padding(EdgeInsets(top:10, leading:100, bottom:10, trailing:100))
+                        .foregroundColor(.white)
+                        .background(selectionHandler.isSomeSelectedEntry ? (result.isCorrect ? .green : .red) : .gray)
+                        .cornerRadius(15)
+                }.frame(width:UIScreen.main.bounds.width)
+                    .disabled(!selectionHandler.isSomeSelectedEntry)
+                
+                
             }
         }.navigationBarBackButtonHidden(true)
     }
+    
+    func updateSelectionHandler(count: Int) {
+        DispatchQueue.main.async {
+            let _ = selectionHandler.updateObject(count: count)
+            if lessonsData[indexLesson].type == .wordWithSound {
+                gridItems = [GridItem(.flexible(), alignment: .center)]
+            }
+            else {
+                gridItems = [GridItem(.flexible(), alignment: .center), GridItem(.flexible(), alignment: .center), ]
+            }
+        }
+    }
+    
 }
-
 #Preview {
     LessonView()
 }

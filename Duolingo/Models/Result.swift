@@ -8,6 +8,6 @@
 import Foundation
 
 struct Result {
-    let isCorrect : Bool
-    let answer : String
+    var isCorrect : Bool
+    var answer : String
 }
