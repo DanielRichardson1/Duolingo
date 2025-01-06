@@ -13,7 +13,7 @@ struct LessonView: View {
     @State private var progress = 0.1
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     let lessonsData = LessonsData.lessons
-    @State var indexLesson : Int = 0
+    @State var indexLesson : Int = 2
     @ObservedObject var selectionHandler = OptionSelectionHandler()
     @State var gridItems = [GridItem(.flexible(), alignment:.center)]
     @State private var speechSynthesizer : AVSpeechSynthesizer?
@@ -48,6 +48,8 @@ struct LessonView: View {
                     
                 }
                 
+                let options = lessonsData[indexLesson].options.count > 0 ? lessonsData[indexLesson].options : lessonsData[indexLesson].japaneseOptions
+                
                 let text =
                 switch(lessonsData[indexLesson].type){
                 case LessonType.wordWithSound:
@@ -67,8 +69,20 @@ struct LessonView: View {
                     .padding(.leading, 10)
                 
                 Spacer().frame(height:50)
+                
+                HStack {
+                    Spacer()
+                    QuestionCardView(word: lessonsData[indexLesson].question, type: lessonsData[indexLesson].type)
+                    Spacer()
+                }
+                
+                ScrollView {
+                    LazyVGrid(columns: gridItems){
+                        Text("options")
+                    }
+                    
+                }
             }
-            
         }.navigationBarBackButtonHidden(true)
     }
 }
