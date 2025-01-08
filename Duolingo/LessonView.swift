@@ -103,13 +103,14 @@ struct LessonView: View {
                                 result.isCorrect = false
                             }
                         }
+                    }
                         else {
                             displayResultView = false
                             result.isCorrect = true
                             indexLesson += 1
                             let options = lessonsData[indexLesson].options.count > 0 ? lessonsData[indexLesson].options : lessonsData[indexLesson].japaneseOptions
+                            updateSelectionHandler(count: options.count)
                         }
-                    }
                 }){
                     Text(displayResultView ? "Continue" : "Check")
                         .font(.system(size:30))
@@ -121,6 +122,9 @@ struct LessonView: View {
                     .disabled(!selectionHandler.isSomeSelectedEntry)
                 
                 
+            }
+            .onAppear{
+                speakTheQuestion()
             }
         }.navigationBarBackButtonHidden(true)
     }
@@ -134,7 +138,21 @@ struct LessonView: View {
             else {
                 gridItems = [GridItem(.flexible(), alignment: .center), GridItem(.flexible(), alignment: .center), ]
             }
+            speakTheQuestion()
         }
+    }
+    
+    func speakTheQuestion() {
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
+        
+        let utterance = AVSpeechUtterance(string: lessonsData[indexLesson].questionInJapanse)
+        utterance.voice = AVSpeechSynthesisVoice(language:"ja")
+        utterance.rate = 0.1
+        
+        speechSynthesizer = AVSpeechSynthesizer()
+        speechSynthesizer?.speak(utterance)
+        
+        
     }
     
 }

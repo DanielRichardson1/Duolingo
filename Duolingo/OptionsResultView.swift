@@ -41,9 +41,7 @@ struct OptionsResultView: View {
             Spacer()
             
         }.padding()
-            .frame(width: UIScreen.main.bounds.width, height: isCorrect ? 200 : 300)
-            .background(Color.yellow)
-        
+            .frame(width: UIScreen.main.bounds.width, height: isCorrect ? 100 : 150)        
     }
 }
 
